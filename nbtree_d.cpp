@@ -31,8 +31,7 @@ nbAddr nbCNode(nbType X){
 }
 
 /* Modul Alokasi untuk sebuah Node. Terdapat Input-an spt (Nama, Usia, JK, Status) */
-void Insertnode(nbTree *tRoot, nbAddr parent, nbType X)
-{
+void Insertnode(nbTree *tRoot, nbAddr parent, nbType X){
     nbAddr newNode, temp;
 
     newNode=nbCNode(X);
@@ -91,13 +90,13 @@ void Inorder(nbAddr root){
 }
 
 void view_traversal(nbAddr root){
-    printf("\n\tPostorder :\n");
-    Postorder(root);
-    printf("\n\tPreorder  :\n");
-    Preorder(root);
-    printf("\n\tInorder   :\n");
-    Inorder(root);
     printf("\n");
+    printf("\tPOSTORDER : ");
+    Postorder(root); printf("\n");
+    printf("\tINORDER   : ");
+    Inorder(root);   printf("\n");
+    printf("\tPREORDER  : ");
+    Preorder(root);  printf("\n");
 }
 
 /* Delete Node, diasumsikan pada silsilah keluarga statusnya menjadi meninggal */
