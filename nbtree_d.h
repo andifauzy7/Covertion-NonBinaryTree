@@ -25,6 +25,13 @@ struct nbTree{
 	nbAddr root;
 };
 
+/* Ini Struct Binary Tree */
+
+typedef struct nbTreeNode{
+	nbAddr left,right;
+	nbType info;
+}ElmtTree;
+
 
 /* Konstruktor Tree
 By : Fahmi Widianto */
