@@ -1,0 +1,96 @@
+# depslib dependency file v1.0
+1557212671 source:d:\adt tree\adt-tree\nbtree_d.cpp
+	<limits.h>
+	<malloc.h>
+	"nbtree_d.h"
+
+1557203174 d:\adt tree\adt-tree\nbtree_d.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1557212029 source:d:\adt tree\adt-tree\main.cpp
+	"nbtree_d.h"
+
+1557758428 source:d:\adt tree\versi andi\main.cpp
+	"nbtree_d.h"
+
+1557583029 d:\adt tree\versi andi\nbtree_d.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"boolean.h"
+
+1557759193 source:d:\adt tree\versi andi\nbtree_d.cpp
+	<limits.h>
+	<malloc.h>
+	"nbtree_d.h"
+	"boolean.h"
+
+1540955430 d:\adt tree\versi andi\boolean.h
+
+1557812980 source:d:\adt tree silsilah\nbtree_d.cpp
+	<limits.h>
+	<malloc.h>
+	"nbtree_d.h"
+	"boolean.h"
+
+1557814437 d:\adt tree silsilah\nbtree_d.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"boolean.h"
+
+1540955430 d:\adt tree silsilah\boolean.h
+
+1557812852 source:d:\adt tree silsilah\main.cpp
+	"nbtree_d.h"
+
+1559030321 source:c:\users\andi fauzy\documents\spain_family\main.cpp
+	"nbtree_d.h"
+
+1558788816 c:\users\andi fauzy\documents\spain_family\nbtree_d.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"boolean.h"
+
+1557815917 c:\users\andi fauzy\documents\spain_family\boolean.h
+
+1558417464 source:c:\users\user\documents\spain_family\main.cpp
+	"nbtree_d.h"
+
+1558417453 c:\users\user\documents\spain_family\nbtree_d.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"boolean.h"
+
+1557819390 c:\users\user\documents\spain_family\boolean.h
+
+1558417430 source:c:\users\user\documents\spain_family\nbtree_d.cpp
+	<malloc.h>
+	"nbtree_d.h"
+	"boolean.h"
+
+1559028042 source:c:\users\andi fauzy\documents\spain_family\nbtree_d.cpp
+	<malloc.h>
+	"nbtree_d.h"
+	"boolean.h"
+
+1559028042 source:c:\users\andi fauzy\documents\covertion-nonbinarytree\nbtree_d.cpp
+	<malloc.h>
+	"nbtree_d.h"
+	"boolean.h"
+
+1561433837 c:\users\andi fauzy\documents\covertion-nonbinarytree\nbtree_d.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"boolean.h"
+
+1557815917 c:\users\andi fauzy\documents\covertion-nonbinarytree\boolean.h
+
+1561433651 source:c:\users\andi fauzy\documents\covertion-nonbinarytree\main.cpp
+	"nbtree_d.h"
+
