@@ -30,6 +30,12 @@ nbAddr nbCNode(nbType X){
 	return newNode;
 }
 
+bAddr Create_BTree(bAddr *First, nbType nama){
+    (*First)=(bAddr)malloc(sizeof(BinaryTree));
+    strcpy((*First)->info,nama);
+    return (*First);
+}
+
 /* Modul Alokasi untuk sebuah Node. Terdapat Input-an spt (Nama, Usia, JK, Status) */
 void Insertnode(nbTree *tRoot, nbAddr parent, nbType X){
     nbAddr newNode, temp;

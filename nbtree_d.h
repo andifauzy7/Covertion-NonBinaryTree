@@ -39,6 +39,7 @@ By : Fahmi Widianto */
 
 void nbCreate(nbTree *x);
 nbAddr nbCNode(nbType X);
+bAddr Create_BTree(bAddr *First, nbType nama);
 
 /* Modul Alokasi untuk sebuah Node. Terdapat Input-an spt (Nama, Usia, JK, Status)
 By : Fahmi Widianto */
