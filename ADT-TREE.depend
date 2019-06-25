@@ -83,7 +83,7 @@
 	"nbtree_d.h"
 	"boolean.h"
 
-1561434374 c:\users\andi fauzy\documents\covertion-nonbinarytree\nbtree_d.h
+1561436089 c:\users\andi fauzy\documents\covertion-nonbinarytree\nbtree_d.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -91,6 +91,6 @@
 
 1557815917 c:\users\andi fauzy\documents\covertion-nonbinarytree\boolean.h
 
-1561433651 source:c:\users\andi fauzy\documents\covertion-nonbinarytree\main.cpp
+1561434999 source:c:\users\andi fauzy\documents\covertion-nonbinarytree\main.cpp
 	"nbtree_d.h"
 

@@ -27,10 +27,11 @@ struct nbTree{
 
 /* Ini Struct Binary Tree */
 
-typedef struct nbTreeNode{
-	nbAddr left,right;
+typedef struct TreeNode *bAddr;
+typedef struct TreeNode{
+	bAddr left,right;
 	nbType info;
-}ElmtTree;
+}BinaryTree;
 
 
 /* Konstruktor Tree
