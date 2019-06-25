@@ -58,6 +58,7 @@ By : Andi Fauzy D */
 
 
 /* Modul Pembantu */
+void updatetree(nbTree *root, nbTree *root2);
 
 /* Search dengan mengembalikan address Node tertentu
 By : Andi Fauzy D */
