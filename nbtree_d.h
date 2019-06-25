@@ -33,6 +33,11 @@ typedef struct TreeNode{
 	nbType info;
 }BinaryTree;
 
+typedef struct Stack *address;
+typedef struct Stack{
+	nbAddr alamat;
+	address next;
+}Tumpukan;
 
 /* Konstruktor Tree
 By : Fahmi Widianto */
@@ -40,6 +45,7 @@ By : Fahmi Widianto */
 void nbCreate(nbTree *x);
 nbAddr nbCNode(nbType X);
 bAddr Create_BTree(bAddr *First, nbType nama);
+bAddr Convert_nbtree(nbAddr root);
 
 /* Modul Alokasi untuk sebuah Node. Terdapat Input-an spt (Nama, Usia, JK, Status)
 By : Fahmi Widianto */
@@ -67,6 +73,11 @@ nbAddr nbSearchbefore(nbAddr root, nbAddr alamat);
 /* Cetak Tree
 By : Both */
 void nbPrint(nbAddr node, char tab[]);
+
+/* Modul Stack */
+void push_stack(address *First, nbAddr simpan);
+nbAddr pop_stack(address *First);
+bool empty_stack(address First);
 
 
 #endif

@@ -36,6 +36,38 @@ bAddr Create_BTree(bAddr *First, nbType nama){
     return (*First);
 }
 
+bAddr Convert_nbtree(nbAddr root){
+    nbAddr gerak;
+    address Awal=NULL;
+    if(root==NULL){
+        // Jika Tree Kosong.
+        printf("\tTree Masih Kosong!");
+    } else {
+        printf("%s\n",root->nama);
+        if(root->fs==NULL){
+            // Jika Hanya Root saja.
+        } else {
+            gerak=root->fs;
+            printf("%s\n",gerak->nama);
+            while(gerak->nb!=NULL || empty_stack(Awal)==false){
+                // Pengecekan apabila memiliki First-an
+                if(gerak->fs!=NULL){
+                    push_stack(&Awal,gerak->fs);
+                }
+                gerak=gerak->nb;
+                printf("%s\n",gerak->nama);
+                // Apabila sudah diujung, mencari alamat untuk turun
+                if(gerak->nb==NULL && empty_stack(Awal)==false){
+                    gerak=pop_stack(&Awal);
+                    printf("%s\n",gerak->nama);
+                }
+            }
+        }
+        return NULL;
+    }
+}
+
+
 /* Modul Alokasi untuk sebuah Node. Terdapat Input-an spt (Nama, Usia, JK, Status) */
 void Insertnode(nbTree *tRoot, nbAddr parent, nbType X){
     nbAddr newNode, temp;
@@ -158,4 +190,50 @@ void nbPrint(nbAddr node, char tab[]){
 		nbPrint(node->nb,tab);
 	}
 }
+
+/* Modul Stack */
+
+void push_stack(address *First, nbAddr simpan){
+    if((*First)==NULL){
+        (*First)=(address)malloc(sizeof(Tumpukan));
+        (*First)->alamat=simpan;
+        (*First)->next=NULL;
+    } else {
+        address temp;
+        temp=(address)malloc(sizeof(Tumpukan));
+        temp->alamat=simpan;
+        temp->next=(*First);
+        (*First)=temp;
+    }
+}
+
+nbAddr pop_stack(address *First){
+    if((*First)==NULL){
+        return NULL;
+    } else if((*First)->next==NULL){
+        nbAddr temp=(*First)->alamat;
+        (*First)=NULL;
+        return temp;
+    } else {
+        address temp;
+        temp=(address)malloc(sizeof(Tumpukan));
+        temp=(*First);
+        while(temp->next->next!=NULL){
+            temp=temp->next;
+        }
+        nbAddr returns = temp->next->alamat;
+        temp->next=NULL;
+        return returns;
+
+    }
+}
+
+bool empty_stack(address First){
+    if(First==NULL){
+        return true;
+    } else {
+        return false;
+    }
+}
+
 
