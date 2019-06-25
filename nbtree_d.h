@@ -69,5 +69,9 @@ nbAddr nbSearchbefore(nbAddr root, nbAddr alamat);
 By : Both */
 void nbPrint(nbAddr node, char tab[]);
 
+/*Input Data
+By : Hilmy Okto*/
+void nbInput (nbTree *tRoot);
+
 
 #endif

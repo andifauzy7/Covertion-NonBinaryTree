@@ -6,11 +6,8 @@ int main(){
 
 
     nbCreate(&MyList);
+    nbInput(&MyList);
 
-    Insertnode(&MyList, nbSearch(MyList.root,0), "Hilmy Okto");
-    Insertnode(&MyList, nbSearch(MyList.root,"Hilmy Okto"), "Adhitya Febhiakbar");
-    Insertnode(&MyList, nbSearch(MyList.root,"Hilmy Okto"), "Ameliana Harahap");
-    Insertnode(&MyList, nbSearch(MyList.root,"Hilmy Okto"), "Salma Meldiyana");
 
     nbPrint(MyList.root," ");
     view_traversal(MyList.root);

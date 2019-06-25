@@ -200,3 +200,20 @@ void updatetree(nbTree *root, nbTree *root2){
     }
 }
 
+void nbInput(nbTree *tRoot){
+nbType nama;
+
+printf("Masukan Nama: ",nama);
+scanf(" %s", &nama);
+if((*tRoot).root == NULL){
+Insertnode(&(*tRoot), nbSearch((*tRoot).root,0), nama);
+}else{
+inprt: printf("Masukan Parent: ",nama);
+       scanf(" %s", &nama);
+       if((*tRoot).root == NULL){
+        goto inprt;
+       }else{
+       printf("Input Berhasil!");
+       }
+}
+}
