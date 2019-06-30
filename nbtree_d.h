@@ -36,17 +36,22 @@ typedef struct TreeNode{
 	nbType info;
 }BinaryTree;
 
+typedef struct TreeNodeAVL *Addr;
+typedef struct TreeNodeAVL{
+	Addr left,right;
+	nbType info;
+	int height;
+}BinaryTreeAVL;
 
 /* Konstruktor Tree */
 
 void nbCreate(nbTree *x);
 nbAddr nbCNode(nbType X);
-bAddr Create_BTree(bAddr *First, nbType nama);
-bAddr Convert_nbtree(nbAddr root);
+void create_nodebinary(Addr *root);
+bAddr Convert_nbtree(nbAddr root, Addr *avl_root);
 
 /* Modul Alokasi untuk sebuah Node. */
 void Insertnode(nbTree *tRoot, nbAddr parent, nbType X);
-void inputmember(nbTree *root);
 bAddr insert_btree(bAddr First, nbAddr nonbinary);
 
 /* Tampil Tree Preorder, Inorder, Postorder */
@@ -63,6 +68,13 @@ void Pre_binary(bAddr root);
 void In_binary(bAddr root);
 void view_traversal_binary(bAddr root);
 
+/* Untuk AVL Binary Tree */
+
+void AVL_postorder(Addr root);
+void AVL_preorder(Addr root);
+void AVL_inorder(Addr root);
+void view_traversal_AVL(Addr root);
+
 /* Delete Node */
 
 
@@ -78,5 +90,26 @@ void list_parent(nbAddr root);
 /*Input Data */
 void nbInput (nbTree *tRoot);
 void updatetree(nbTree *root);
+
+/* Modul Pembantu Untuk AVL Tree */
+
+int bDepth(bAddr root);
+
+int AVLDepth(Addr root);
+
+int max(int a, int b);
+
+Addr build_node(nbType value);
+
+int height_node(Addr root);
+
+Addr rotasi_kanan(Addr y);
+
+Addr rotasi_kiri(Addr x);
+
+int get_different(Addr N);
+
+Addr input_nodeAVL(Addr node, nbType value);
+
 
 #endif

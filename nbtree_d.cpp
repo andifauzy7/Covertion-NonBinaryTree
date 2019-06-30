@@ -28,13 +28,13 @@ nbAddr nbCNode(nbType X){
 	return newNode;
 }
 
-bAddr Create_BTree(bAddr *First, nbType nama){
-    (*First)=(bAddr)malloc(sizeof(BinaryTree));
-    strcpy((*First)->info,nama);
-    return (*First);
+void create_nodebinary(Addr *root){
+    (*root) =(Addr) malloc(sizeof(BinaryTreeAVL));
+    strcpy((*root)->info,"0");
+    (*root)->left=(*root)->right=NULL;
 }
 
-bAddr Convert_nbtree(nbAddr root){
+bAddr Convert_nbtree(nbAddr root, Addr *avl_root){
     bAddr First = (bAddr)malloc(sizeof(BinaryTree));
     First->left = First->right = NULL;
     nbAddr pCur;
@@ -45,15 +45,18 @@ bAddr Convert_nbtree(nbAddr root){
     }
 	pCur=root;
 	First = insert_btree(First, pCur);
+	(*avl_root) = input_nodeAVL((*avl_root), pCur->nama);
 	do{
 		if(pCur->fs!=NULL && arah==0){
 			pCur=pCur->fs;
 			First = insert_btree(First, pCur);
+			(*avl_root) = input_nodeAVL((*avl_root), pCur->nama);
 		}else{
 			arah=0;
 			if (pCur->nb!= NULL){
 				pCur=pCur->nb;
 				First = insert_btree(First, pCur);
+				(*avl_root) = input_nodeAVL((*avl_root), pCur->nama);
 			}else{
 				pCur=pCur->parent;
 				arah=1;
@@ -62,7 +65,6 @@ bAddr Convert_nbtree(nbAddr root){
 	}while(pCur!=NULL);
     return First;
 }
-
 
 /* Modul Alokasi untuk sebuah Node. */
 
@@ -211,6 +213,47 @@ void view_traversal_binary(bAddr root){
     In_binary(root);   printf("\n");
     printf("\tPREORDER  : ");
     Pre_binary(root);  printf("\n");
+    printf("\tKEDALAMAN : %d\n",bDepth(root));
+}
+
+/* Untuk AVL Binary Tree */
+
+void AVL_postorder(Addr root){
+	if (root!=NULL){
+		AVL_postorder(root->left);
+		AVL_postorder(root->right);
+		printf(" %s.", root->info);
+	}
+}
+
+void AVL_preorder(Addr root){
+	if (root!=NULL){
+		printf(" %s.", root->info);
+		AVL_preorder(root->left);
+		AVL_preorder(root->right);
+	}
+}
+
+void AVL_inorder(Addr root){
+	if (root!=NULL){
+		AVL_inorder(root->left);
+		printf(" %s.", root->info);
+		AVL_inorder(root->right);
+	}
+}
+
+void view_traversal_AVL(Addr root){
+    if(root==NULL){
+        printf("\n\tTree belum dibuat!");
+    }
+    printf("\n\tAVL Binary Tree");
+    printf("\n\tPOSTORDER : ");
+    AVL_postorder(root); printf("\n");
+    printf("\tINORDER   : ");
+    AVL_inorder(root);   printf("\n");
+    printf("\tPREORDER  : ");
+    AVL_preorder(root);  printf("\n");
+    printf("\tKEDALAMAN : %d\n",AVLDepth(root));
 }
 
 /* Delete Node */
@@ -218,6 +261,36 @@ void view_traversal_binary(bAddr root){
 
 
 /* Modul Pembantu */
+
+int bDepth(bAddr root){
+    if (root == NULL)
+        return 0;
+    else {
+        int l_depth = bDepth(root->left);
+        int r_depth = bDepth(root->right);
+
+        if (l_depth > r_depth){
+            return(l_depth + 1);
+        }else {
+            return(r_depth + 1);
+        }
+    }
+}
+
+int AVLDepth(Addr root){
+    if (root == NULL)
+        return 0;
+    else {
+        int l_depth = AVLDepth(root->left);
+        int r_depth = AVLDepth(root->right);
+
+        if (l_depth > r_depth){
+            return(l_depth + 1);
+        }else {
+            return(r_depth + 1);
+        }
+    }
+}
 
 /* Search dengan mengembalikan address Node tertentu */
 
@@ -366,4 +439,95 @@ inprt:
     }
 }
 
+/* Modul Pembantu Untuk AVL Tree */
+
+int max(int a, int b){
+	return (a > b)? a : b;
+}
+
+Addr build_node(nbType value){
+	Addr node = (Addr)malloc(sizeof(BinaryTreeAVL));
+	strcpy(node->info, value);
+	node->left = node->right = NULL;
+	node->height = 1;
+	return(node);
+}
+
+int height_node(Addr root){
+	if (root == NULL)
+		return 0;
+	return root->height;
+}
+
+Addr rotasi_kanan(Addr y){
+	Addr x = y->left;
+	Addr T2 = x->right;
+
+	x->right = y;
+	y->left = T2;
+
+    // Melakukan Update Height karena ada perubahan dari rotasi.
+	y->height = max(height_node(y->left), height_node(y->right))+1;
+	x->height = max(height_node(x->left), height_node(x->right))+1;
+	return x;
+}
+
+Addr rotasi_kiri(Addr x){
+	Addr y = x->right;
+	Addr T2 = y->left;
+
+	y->left = x;
+	x->right = T2;
+
+	// Melakukan Update Height karena ada perubahan dari rotasi.
+	x->height = max(height_node(x->left), height_node(x->right))+1;
+	y->height = max(height_node(y->left), height_node(y->right))+1;
+	return y;
+}
+
+int get_different(Addr N){
+	if (N == NULL)
+		return 0;
+	return height_node(N->left) - height_node(N->right);
+}
+
+Addr input_nodeAVL(Addr node, nbType value){
+	// Umumnya Proses Input sama seperti BST, Perbedaan pada modul ini yaitu melakukan otomatis Balancing setelah Input.
+	if (node == NULL)
+		return(build_node(value));
+	if (strcmp(value, node->info)<0)
+		node->left = input_nodeAVL(node->left, value);
+	else if (strcmp(value, node->info)>0)
+		node->right = input_nodeAVL(node->right, value);
+	else
+		return node;
+
+	// Melakukan Update Height setelah proses input kedalam tree.
+	node->height = 1 + max(height_node(node->left),height_node(node->right));
+
+	// Mendapatkan selisih antara node kiri dan kanan.
+	int balance = get_different(node);
+
+	// Left Left Case
+	if (balance > 1 && strcmp(value, node->left->info)<0)
+		return rotasi_kanan(node);
+
+	// Right Right Case
+	if (balance < -1 && strcmp(value, node->right->info)>0)
+		return rotasi_kiri(node);
+
+	// Left Right Case
+	if (balance > 1 && strcmp(value, node->left->info)>0){
+		node->left = rotasi_kiri(node->left);
+		return rotasi_kanan(node);
+	}
+
+	// Right Left Case
+	if (balance < -1 && strcmp(value, node->right->info)<0){
+		node->right = rotasi_kanan(node->right);
+		return rotasi_kiri(node);
+	}
+
+	return node;
+}
 

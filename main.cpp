@@ -5,8 +5,9 @@ int menu();
 int main(){
     nbTree MyList;          // Pointer Head Non-Binary Tree
     bAddr MyList_Binary;    // Pointer Head Binary Tree
-    bAddr MyList_BinAVL;    // Pointer Head Binary Tree AVL Mode
-    MyList_Binary = MyList_BinAVL = (bAddr)malloc(sizeof(BinaryTree));
+    Addr MyList_BinAVL;     // Pointer Head Binary Tree AVL Mode
+    MyList_Binary = (bAddr)malloc(sizeof(BinaryTree));
+    create_nodebinary(&MyList_BinAVL);
     nbCreate(&MyList);
 
     Insertnode(&MyList, nbSearch(MyList.root,0), "Andi");
@@ -52,8 +53,9 @@ int main(){
             case 5: {
                 // Tampilkan Tree.
                 view_traversal(MyList.root);
-                MyList_Binary = Convert_nbtree(MyList.root);
+                MyList_Binary = Convert_nbtree(MyList.root, &MyList_BinAVL);
                 view_traversal_binary(MyList_Binary);
+                view_traversal_AVL(MyList_BinAVL);
                 printf("\n\t"); system("pause"); system("cls");
                 break;
             }
