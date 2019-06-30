@@ -20,26 +20,10 @@ int main(){
     Insertnode(&MyList, nbSearch(MyList.root,"Cindy"), "Jarot");
     Insertnode(&MyList, nbSearch(MyList.root,"Andi"), "Deni");
     Insertnode(&MyList, nbSearch(MyList.root,"Deni"), "Kevin");
+    Insertnode(&MyList, nbSearch(MyList.root,"Deni"), "Gagan");
     Insertnode(&MyList, nbSearch(MyList.root,"Kevin"), "Maman");
     Insertnode(&MyList, nbSearch(MyList.root,"Kevin"), "Nanad");
 
-    view_traversal(MyList.root);
-    MyList_Binary = Convert_nbtree(MyList.root, &MyList_BinAVL);
-    printf("\n\tBinary Tree");
-    view_traversal_binary(MyList_Binary);
-    printf("\n\tAVL Binary Tree");
-    view_traversal_binary(MyList_BinAVL); MyList_BinAVL=NULL;
-
-    MyList.root = delete_node(MyList.root, "Bobby");
-
-    view_traversal(MyList.root);
-    MyList_Binary = Convert_nbtree(MyList.root, &MyList_BinAVL);
-    printf("\n\tBinary Tree");
-    view_traversal_binary(MyList_Binary);
-    printf("\n\tAVL Binary Tree");
-    view_traversal_binary(MyList_BinAVL);
-
-    /*
     for(;;){
         switch(menu()){
             case 1: {
@@ -56,6 +40,10 @@ int main(){
             }
             case 3: {
                 // Delete Node.
+                printf("\n\tNama yang akan di-Delete : ");
+                nbType name;
+                scanf(" %s",name);
+                MyList.root = delete_node(MyList.root, name);
                 printf("\n\t"); system("pause"); system("cls");
                 break;
             }
@@ -81,7 +69,7 @@ int main(){
                 system("cls"); exit(1);
             }
         }
-    }*/
+    }
 
 	return 0;
 }
