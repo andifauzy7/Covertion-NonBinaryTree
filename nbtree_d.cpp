@@ -282,63 +282,79 @@ void nbPrint(nbAddr node, char tab[]){
 	}
 }
 
+void list_parent(nbAddr root){
+	if (root!=NULL){
+		printf(" \n\t> %s.", root->nama);
+		list_parent(root->fs);
+		list_parent(root->nb);
+	}
+}
+
 
 /* Update Tree */
 
-void updatetree(nbTree *root, nbTree *root2){
+void updatetree(nbTree *root){
     nbTree memberlist;
     nbAddr change;
     nbType srcnama, newname;
     char pil;
 
-    repeat:
-    memberlist=(*root);
-    nbPrint(memberlist.root, "");
-    printf("\n\tNama Lengkap       : "); scanf(" %[^\n]", srcnama);
-    change=nbSearch(memberlist.root, srcnama);
-    if (change!=NULL)
-    {
-        printf("\n\tMasukan Nama Baru : ");
-        scanf(" %[^\n]", newname);
-        strcpy(change->nama, newname);
-        printf("\n\tUpdate Sukses!!!");
-
-        printf("\n\tApakah anda ingin Update lagi?(Y/T) :");
-        scanf(" %c", &pil);
-        if (pil=='Y' || pil=='y')
+    if((*root).root == NULL){
+        printf("\n\tTree belum dibuat!");
+    } else {
+        repeat:
+        memberlist=(*root);
+        list_parent(memberlist.root);
+        printf("\n\n\tNama (*Akan diupdate)   : "); scanf(" %[^\n]", srcnama);
+        change=nbSearch(memberlist.root, srcnama);
+        if (change!=NULL)
         {
-            system("cls");
-            goto repeat;
+        printf("\tMasukan Nama Baru       : ");
+            scanf(" %[^\n]", newname);
+            strcpy(change->nama, newname);
+            printf("\n\tUpdate Sukses!!!");
+
+            printf("\n\tApakah anda ingin Update lagi?(Y/T) :");
+            scanf(" %c", &pil);
+            if (pil=='Y' || pil=='y')
+            {
+                system("cls");
+                goto repeat;
+            }
+            else
+            {
+                printf("\n\tUpdate selesai!!!");
+            }
         }
         else
         {
-            printf("\n\tUpdate selesai!!!");
+            printf("\n\tNama Tidak Ada, Ulangi. \n\n\t");
+            system("pause");
+            system("cls");
+            goto repeat;
         }
-    }
-    else
-    {
-        printf("\n\tNama Tidak Ada, Ulangi. \n\n\t");
-        system("pause");
-        system("cls");
-        goto repeat;
+
     }
 }
 
 void nbInput(nbTree *tRoot){
 nbType nama;
-
-    printf("\tMasukan Nama      : ",nama);
-    scanf(" %s", &nama);
+nbType parent;
+    printf("\n\tMasukan Nama      : ",nama);
+    scanf(" %[^\n]", &nama);
     if((*tRoot).root == NULL){
         Insertnode(&(*tRoot), nbSearch((*tRoot).root,0), nama);
     } else {
+        printf("\n\n\tDAFTAR PARENTS");
+        list_parent((*tRoot).root); printf("\n");
 inprt:
         printf("\tMasukan Parent    : ");
-        scanf(" %s", &nama);
-            if(nbSearch((*tRoot).root,nama) == NULL){
+        scanf(" %[^\n]", &parent);
+            if(nbSearch((*tRoot).root,parent) == NULL){
                 printf("\n\tInput Gagal! Masukkan Parent yang sesuai\n");
                 goto inprt;
             } else {
+                Insertnode(&(*tRoot), nbSearch((*tRoot).root,parent), nama);
                 printf("\n\tInput Berhasil!");
             }
     }

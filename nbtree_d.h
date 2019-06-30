@@ -73,9 +73,10 @@ bAddr bSearch(bAddr root, nbType src);
 
 /* Cetak Tree */
 void nbPrint(nbAddr node, char tab[]);
+void list_parent(nbAddr root);
 
 /*Input Data */
 void nbInput (nbTree *tRoot);
-void updatetree(nbTree *root, nbTree *root2);
+void updatetree(nbTree *root);
 
 #endif
