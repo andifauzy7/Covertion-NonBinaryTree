@@ -30,29 +30,25 @@ struct nbTree{
 
 /* Struct Binary Tree */
 
-typedef struct TreeNode *bAddr;
+typedef struct TreeNode *Addr;
 typedef struct TreeNode{
-	bAddr left,right;
-	nbType info;
-}BinaryTree;
-
-typedef struct TreeNodeAVL *Addr;
-typedef struct TreeNodeAVL{
 	Addr left,right;
 	nbType info;
 	int height;
-}BinaryTreeAVL;
+}BinaryTree;
 
 /* Konstruktor Tree */
 
 void nbCreate(nbTree *x);
 nbAddr nbCNode(nbType X);
-void create_nodebinary(Addr *root);
-bAddr Convert_nbtree(nbAddr root, Addr *avl_root);
+Addr Convert_nbtree(nbAddr root, Addr *avl_root);
 
 /* Modul Alokasi untuk sebuah Node. */
 void Insertnode(nbTree *tRoot, nbAddr parent, nbType X);
-bAddr insert_btree(bAddr First, nbAddr nonbinary);
+Addr insert_btree(Addr First, nbAddr nonbinary);
+
+/* Kedalaman */
+int bDepth(Addr root);
 
 /* Tampil Tree Preorder, Inorder, Postorder */
 
@@ -62,18 +58,12 @@ void Preorder(nbAddr root);
 void Inorder(nbAddr root);
 void view_traversal(nbAddr root);
 
-/* Untuk Binary Tree */
-void Post_binary(bAddr root);
-void Pre_binary(bAddr root);
-void In_binary(bAddr root);
-void view_traversal_binary(bAddr root);
-
 /* Untuk AVL Binary Tree */
 
-void AVL_postorder(Addr root);
-void AVL_preorder(Addr root);
-void AVL_inorder(Addr root);
-void view_traversal_AVL(Addr root);
+void Binary_post(Addr root);
+void Binary_pre(Addr root);
+void Binary_in(Addr root);
+void view_traversal_binary(Addr root);
 
 /* Delete Node */
 
@@ -81,7 +71,7 @@ void view_traversal_AVL(Addr root);
 /* Search dengan mengembalikan address Node tertentu */
 nbAddr nbSearch(nbAddr root, nbType src);
 nbAddr nbSearchbefore(nbAddr root, nbAddr alamat);
-bAddr bSearch(bAddr root, nbType src);
+Addr bSearch(Addr root, nbType src);
 
 /* Cetak Tree */
 void nbPrint(nbAddr node, char tab[]);
@@ -92,23 +82,12 @@ void nbInput (nbTree *tRoot);
 void updatetree(nbTree *root);
 
 /* Modul Pembantu Untuk AVL Tree */
-
-int bDepth(bAddr root);
-
-int AVLDepth(Addr root);
-
 int max(int a, int b);
-
 Addr build_node(nbType value);
-
 int height_node(Addr root);
-
 Addr rotasi_kanan(Addr y);
-
 Addr rotasi_kiri(Addr x);
-
 int get_different(Addr N);
-
 Addr input_nodeAVL(Addr node, nbType value);
 
 

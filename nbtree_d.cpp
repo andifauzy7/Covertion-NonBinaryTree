@@ -28,14 +28,8 @@ nbAddr nbCNode(nbType X){
 	return newNode;
 }
 
-void create_nodebinary(Addr *root){
-    (*root) =(Addr) malloc(sizeof(BinaryTreeAVL));
-    strcpy((*root)->info,"0");
-    (*root)->left=(*root)->right=NULL;
-}
-
-bAddr Convert_nbtree(nbAddr root, Addr *avl_root){
-    bAddr First = (bAddr)malloc(sizeof(BinaryTree));
+Addr Convert_nbtree(nbAddr root, Addr *avl_root){
+    Addr First = (Addr)malloc(sizeof(BinaryTree));
     First->left = First->right = NULL;
     nbAddr pCur;
 	boolean arah;
@@ -68,8 +62,8 @@ bAddr Convert_nbtree(nbAddr root, Addr *avl_root){
 
 /* Modul Alokasi untuk sebuah Node. */
 
-bAddr insert_btree(bAddr First, nbAddr nonbinary){
-    bAddr temp = (bAddr)malloc(sizeof(BinaryTree));
+Addr insert_btree(Addr First, nbAddr nonbinary){
+    Addr temp = (Addr)malloc(sizeof(BinaryTree));
     temp->left = temp->right = NULL;
     if(nonbinary->parent==NULL){
         // Jika tidak memiliki Parent == Menjadi Root.
@@ -77,7 +71,7 @@ bAddr insert_btree(bAddr First, nbAddr nonbinary){
         First->left = First->right = NULL;
     } else {
         // Jika memiliki Parent.
-        bAddr parent = (bAddr)malloc(sizeof(BinaryTree));
+        Addr parent = (Addr)malloc(sizeof(BinaryTree));
         parent = bSearch(First, nonbinary->parent->nama);
         if(parent->left==NULL){
             // Jika Bagian FS dari parent belum terisi oleh anak pertama.
@@ -132,6 +126,23 @@ void Insertnode(nbTree *tRoot, nbAddr parent, nbType X){
         }
 }
 
+/* Kedalaman */
+
+int bDepth(Addr root){
+    if (root == NULL)
+        return 0;
+    else {
+        int l_depth = bDepth(root->left);
+        int r_depth = bDepth(root->right);
+
+        if (l_depth > r_depth){
+            return(l_depth + 1);
+        }else {
+            return(r_depth + 1);
+        }
+    }
+}
+
 /* Tampil Tree Preorder, Inorder, Postorder */
 
 /* Untuk Non - Binary Tree */
@@ -178,7 +189,7 @@ void view_traversal(nbAddr root){
 
 /* Untuk Binary Tree */
 
-void Post_binary(bAddr root){
+void Post_binary(Addr root){
 	if (root!=NULL){
 		Post_binary(root->left);
 		Post_binary(root->right);
@@ -186,7 +197,7 @@ void Post_binary(bAddr root){
 	}
 }
 
-void Pre_binary(bAddr root){
+void Pre_binary(Addr root){
 	if (root!=NULL){
 		printf(" %s.", root->info);
 		Pre_binary(root->left);
@@ -194,7 +205,7 @@ void Pre_binary(bAddr root){
 	}
 }
 
-void In_binary(bAddr root){
+void In_binary(Addr root){
 	if (root!=NULL){
 		Pre_binary(root->left);
 		printf(" %s.", root->info);
@@ -202,100 +213,25 @@ void In_binary(bAddr root){
 	}
 }
 
-void view_traversal_binary(bAddr root){
+void view_traversal_binary(Addr root){
     if(root==NULL){
         printf("\n\tTree belum dibuat!");
     }
-    printf("\n\tBinary Tree");
     printf("\n\tPOSTORDER : ");
     Post_binary(root); printf("\n");
     printf("\tINORDER   : ");
     In_binary(root);   printf("\n");
     printf("\tPREORDER  : ");
     Pre_binary(root);  printf("\n");
-    printf("\tKEDALAMAN : %d\n",bDepth(root));
-}
-
-/* Untuk AVL Binary Tree */
-
-void AVL_postorder(Addr root){
-	if (root!=NULL){
-		AVL_postorder(root->left);
-		AVL_postorder(root->right);
-		printf(" %s.", root->info);
-	}
-}
-
-void AVL_preorder(Addr root){
-	if (root!=NULL){
-		printf(" %s.", root->info);
-		AVL_preorder(root->left);
-		AVL_preorder(root->right);
-	}
-}
-
-void AVL_inorder(Addr root){
-	if (root!=NULL){
-		AVL_inorder(root->left);
-		printf(" %s.", root->info);
-		AVL_inorder(root->right);
-	}
-}
-
-void view_traversal_AVL(Addr root){
-    if(root==NULL){
-        printf("\n\tTree belum dibuat!");
-    }
-    printf("\n\tAVL Binary Tree");
-    printf("\n\tPOSTORDER : ");
-    AVL_postorder(root); printf("\n");
-    printf("\tINORDER   : ");
-    AVL_inorder(root);   printf("\n");
-    printf("\tPREORDER  : ");
-    AVL_preorder(root);  printf("\n");
-    printf("\tKEDALAMAN : %d\n",AVLDepth(root));
+    printf("\tKEDALAMAN :  %d\n",bDepth(root));
 }
 
 /* Delete Node */
 
-
-
-/* Modul Pembantu */
-
-int bDepth(bAddr root){
-    if (root == NULL)
-        return 0;
-    else {
-        int l_depth = bDepth(root->left);
-        int r_depth = bDepth(root->right);
-
-        if (l_depth > r_depth){
-            return(l_depth + 1);
-        }else {
-            return(r_depth + 1);
-        }
-    }
-}
-
-int AVLDepth(Addr root){
-    if (root == NULL)
-        return 0;
-    else {
-        int l_depth = AVLDepth(root->left);
-        int r_depth = AVLDepth(root->right);
-
-        if (l_depth > r_depth){
-            return(l_depth + 1);
-        }else {
-            return(r_depth + 1);
-        }
-    }
-}
-
 /* Search dengan mengembalikan address Node tertentu */
 
-bAddr bSearch(bAddr root, nbType src){
-	bAddr nSrc;
+Addr bSearch(Addr root, nbType src){
+	Addr nSrc;
 	if (root!=NULL){
 		if (strcmp(root->info, src)==0)
 			return root;
@@ -446,7 +382,7 @@ int max(int a, int b){
 }
 
 Addr build_node(nbType value){
-	Addr node = (Addr)malloc(sizeof(BinaryTreeAVL));
+	Addr node = (Addr)malloc(sizeof(BinaryTree));
 	strcpy(node->info, value);
 	node->left = node->right = NULL;
 	node->height = 1;
