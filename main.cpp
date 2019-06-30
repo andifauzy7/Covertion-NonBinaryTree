@@ -4,7 +4,9 @@ int main(){
     nbTree MyList;
     bAddr First = (bAddr)malloc(sizeof(BinaryTree));
     nbCreate(&MyList);
-
+    nbInput(&MyList);
+    nbInput(&MyList);
+    /*
     Insertnode(&MyList, nbSearch(MyList.root,0), "Andi");
     Insertnode(&MyList, nbSearch(MyList.root,"Andi"), "Bobby");
         Insertnode(&MyList, nbSearch(MyList.root,"Bobby"), "Endah");
@@ -22,7 +24,7 @@ int main(){
 
     view_traversal(MyList.root);
     First = Convert_nbtree(MyList.root);
-    view_traversal_binary(First);
+    view_traversal_binary(First); */
 
 
 	return 0;

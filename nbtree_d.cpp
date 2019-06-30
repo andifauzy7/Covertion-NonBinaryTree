@@ -283,3 +283,65 @@ void nbPrint(nbAddr node, char tab[]){
 }
 
 
+/* Update Tree */
+
+void updatetree(nbTree *root, nbTree *root2){
+    nbTree memberlist;
+    nbAddr change;
+    nbType srcnama, newname;
+    char pil;
+
+    repeat:
+    memberlist=(*root);
+    nbPrint(memberlist.root, "");
+    printf("\n\tNama Lengkap       : "); scanf(" %[^\n]", srcnama);
+    change=nbSearch(memberlist.root, srcnama);
+    if (change!=NULL)
+    {
+        printf("\n\tMasukan Nama Baru : ");
+        scanf(" %[^\n]", newname);
+        strcpy(change->nama, newname);
+        printf("\n\tUpdate Sukses!!!");
+
+        printf("\n\tApakah anda ingin Update lagi?(Y/T) :");
+        scanf(" %c", &pil);
+        if (pil=='Y' || pil=='y')
+        {
+            system("cls");
+            goto repeat;
+        }
+        else
+        {
+            printf("\n\tUpdate selesai!!!");
+        }
+    }
+    else
+    {
+        printf("\n\tNama Tidak Ada, Ulangi. \n\n\t");
+        system("pause");
+        system("cls");
+        goto repeat;
+    }
+}
+
+void nbInput(nbTree *tRoot){
+nbType nama;
+
+    printf("\tMasukan Nama      : ",nama);
+    scanf(" %s", &nama);
+    if((*tRoot).root == NULL){
+        Insertnode(&(*tRoot), nbSearch((*tRoot).root,0), nama);
+    } else {
+inprt:
+        printf("\tMasukan Parent    : ");
+        scanf(" %s", &nama);
+            if(nbSearch((*tRoot).root,nama) == NULL){
+                printf("\n\tInput Gagal! Masukkan Parent yang sesuai\n");
+                goto inprt;
+            } else {
+                printf("\n\tInput Berhasil!");
+            }
+    }
+}
+
+

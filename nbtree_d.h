@@ -68,6 +68,7 @@ void view_traversal_binary(bAddr root);
 
 
 /* Modul Pembantu */
+void updatetree(nbTree *root, nbTree *root2);
 
 /* Search dengan mengembalikan address Node tertentu */
 nbAddr nbSearch(nbAddr root, nbType src);
@@ -77,5 +78,9 @@ bAddr bSearch(bAddr root, nbType src);
 /* Cetak Tree */
 void nbPrint(nbAddr node, char tab[]);
 
+/*Input Data
+By : Hilmy Okto*/
+void nbInput (nbTree *tRoot);
+void updatetree(nbTree *root, nbTree *root2);
 
 #endif
