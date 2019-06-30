@@ -33,11 +33,6 @@ typedef struct TreeNode{
 	nbType info;
 }BinaryTree;
 
-typedef struct Stack *address;
-typedef struct Stack{
-	nbAddr alamat;
-	address next;
-}Tumpukan;
 
 /* Konstruktor Tree
 By : Fahmi Widianto */
@@ -51,13 +46,22 @@ bAddr Convert_nbtree(nbAddr root);
 By : Fahmi Widianto */
 void Insertnode(nbTree *tRoot, nbAddr parent, nbType X);
 void inputmember(nbTree *root);
+bAddr insert_btree(bAddr First, nbAddr nonbinary);
 
 /* Tampil Tree Preorder, Inorder, Postorder
 By : Both */
+
+/* Untuk Non - Binary Tree */
 void Postorder(nbAddr root);
 void Preorder(nbAddr root);
 void Inorder(nbAddr root);
 void view_traversal(nbAddr root);
+
+/* Untuk Binary Tree */
+void Post_binary(bAddr root);
+void Pre_binary(bAddr root);
+void In_binary(bAddr root);
+void view_traversal_binary(bAddr root);
 
 /* Delete Node, diasumsikan pada silsilah keluarga statusnya menjadi meninggal
 By : Andi Fauzy D */
@@ -69,15 +73,11 @@ By : Andi Fauzy D */
 By : Andi Fauzy D */
 nbAddr nbSearch(nbAddr root, nbType src);
 nbAddr nbSearchbefore(nbAddr root, nbAddr alamat);
+bAddr bSearch(bAddr root, nbType src);
 
 /* Cetak Tree
 By : Both */
 void nbPrint(nbAddr node, char tab[]);
-
-/* Modul Stack */
-void push_stack(address *First, nbAddr simpan);
-nbAddr pop_stack(address *First);
-bool empty_stack(address First);
 
 
 #endif

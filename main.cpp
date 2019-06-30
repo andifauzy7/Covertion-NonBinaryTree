@@ -1,10 +1,8 @@
 #include "nbtree_d.h"
 
 int main(){
-    nbType nama;
     nbTree MyList;
-    address Awal=NULL;
-
+    bAddr First = (bAddr)malloc(sizeof(BinaryTree));
     nbCreate(&MyList);
 
     Insertnode(&MyList, nbSearch(MyList.root,0), "Andi");
@@ -21,11 +19,11 @@ int main(){
             Insertnode(&MyList, nbSearch(MyList.root,"Kevin"), "Maman");
             Insertnode(&MyList, nbSearch(MyList.root,"Kevin"), "Nanad");
 
-    nbPrint(MyList.root," ");
-    view_traversal(MyList.root);
 
-    printf("\n");
-    bAddr First=Convert_nbtree(MyList.root);
+    view_traversal(MyList.root);
+    First = Convert_nbtree(MyList.root);
+    view_traversal_binary(First);
+
 
 	return 0;
 }

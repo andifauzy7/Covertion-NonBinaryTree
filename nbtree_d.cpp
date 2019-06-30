@@ -36,35 +36,67 @@ bAddr Create_BTree(bAddr *First, nbType nama){
     return (*First);
 }
 
-bAddr Convert_nbtree(nbAddr root){
-    nbAddr gerak;
-    address Awal=NULL;
-    if(root==NULL){
-        // Jika Tree Kosong.
-        printf("\tTree Masih Kosong!");
+bAddr insert_btree(bAddr First, nbAddr nonbinary){
+    bAddr temp = (bAddr)malloc(sizeof(BinaryTree));
+    temp->left = temp->right = NULL;
+    if(nonbinary->parent==NULL){
+        // Jika tidak memiliki Parent == Menjadi Root.
+        strcpy(First->info, nonbinary->nama);
+        First->left = First->right = NULL;
     } else {
-        printf("%s\n",root->nama);
-        if(root->fs==NULL){
-            // Jika Hanya Root saja.
+        // Jika memiliki Parent.
+        bAddr parent = (bAddr)malloc(sizeof(BinaryTree));
+        parent = bSearch(First, nonbinary->parent->nama);
+        if(parent->left==NULL){
+            // Jika Bagian FS dari parent belum terisi oleh anak pertama.
+            strcpy(temp->info, nonbinary->nama);
+            parent->left = temp;
         } else {
-            gerak=root->fs;
-            printf("%s\n",gerak->nama);
-            while(gerak->nb!=NULL || empty_stack(Awal)==false){
-                // Pengecekan apabila memiliki First-an
-                if(gerak->fs!=NULL){
-                    push_stack(&Awal,gerak->fs);
+            // Jika Bagian FS dari parent sudah terisi oleh anak pertama = Disimpan pada bagian terkanan SON.
+            parent = parent->left;
+            if(parent->right == NULL){
+                strcpy(temp->info, nonbinary->nama);
+                parent->right = temp;
+            } else {
+                while(parent->right!=NULL){
+                    parent = parent->right;
                 }
-                gerak=gerak->nb;
-                printf("%s\n",gerak->nama);
-                // Apabila sudah diujung, mencari alamat untuk turun
-                if(gerak->nb==NULL && empty_stack(Awal)==false){
-                    gerak=pop_stack(&Awal);
-                    printf("%s\n",gerak->nama);
-                }
+                strcpy(temp->info, nonbinary->nama);
+                parent->right = temp;
             }
         }
+
+    }
+    return First;
+}
+
+bAddr Convert_nbtree(nbAddr root){
+    bAddr First = (bAddr)malloc(sizeof(BinaryTree));
+    First->left = First->right = NULL;
+    nbAddr pCur;
+	boolean arah;
+	arah=0;
+    if(root == NULL){
         return NULL;
     }
+	pCur=root;
+	First = insert_btree(First, pCur);
+	do{
+		if(pCur->fs!=NULL && arah==0){
+			pCur=pCur->fs;
+			First = insert_btree(First, pCur);
+		}else{
+			arah=0;
+			if (pCur->nb!= NULL){
+				pCur=pCur->nb;
+				First = insert_btree(First, pCur);
+			}else{
+				pCur=pCur->parent;
+				arah=1;
+			}
+		}
+	}while(pCur!=NULL);
+    return First;
 }
 
 
@@ -100,6 +132,9 @@ void Insertnode(nbTree *tRoot, nbAddr parent, nbType X){
 }
 
 /* Tampil Tree Preorder, Inorder, Postorder */
+
+/* NON - BINARY TREE */
+
 void Postorder(nbAddr root){
 	if (root!=NULL){
 		Postorder(root->fs);
@@ -137,11 +172,66 @@ void view_traversal(nbAddr root){
     Preorder(root);  printf("\n");
 }
 
+/* BINARY TREE */
+
+void Post_binary(bAddr root){
+	if (root!=NULL){
+		Post_binary(root->left);
+		Post_binary(root->right);
+		printf(" %s.", root->info);
+	}
+}
+
+void Pre_binary(bAddr root){
+	if (root!=NULL){
+		printf(" %s.", root->info);
+		Pre_binary(root->left);
+		Pre_binary(root->right);
+	}
+}
+
+void In_binary(bAddr root){
+	if (root!=NULL){
+		Pre_binary(root->left);
+		printf(" %s.", root->info);
+		Pre_binary(root->right);
+	}
+}
+
+void view_traversal_binary(bAddr root){
+    printf("\n");
+    printf("\tPOSTORDER : ");
+    Post_binary(root); printf("\n");
+    printf("\tINORDER   : ");
+    In_binary(root);   printf("\n");
+    printf("\tPREORDER  : ");
+    Pre_binary(root);  printf("\n");
+}
+
 /* Delete Node, diasumsikan pada silsilah keluarga statusnya menjadi meninggal */
 
 /* Modul Pembantu */
 
 /* Search dengan mengembalikan address Node tertentu */
+
+bAddr bSearch(bAddr root, nbType src){
+	bAddr nSrc;
+	if (root!=NULL){
+		if (strcmp(root->info, src)==0)
+			return root;
+		else{
+			nSrc=bSearch(root->left,src);
+			if (nSrc==NULL)
+				return bSearch(root->right,src);
+			else
+				return nSrc;
+		}
+	}
+	else{
+		return NULL;
+	}
+}
+
 nbAddr nbSearch(nbAddr root, nbType src){
 	nbAddr nSrc;
 	if (root!=NULL){
@@ -190,50 +280,3 @@ void nbPrint(nbAddr node, char tab[]){
 		nbPrint(node->nb,tab);
 	}
 }
-
-/* Modul Stack */
-
-void push_stack(address *First, nbAddr simpan){
-    if((*First)==NULL){
-        (*First)=(address)malloc(sizeof(Tumpukan));
-        (*First)->alamat=simpan;
-        (*First)->next=NULL;
-    } else {
-        address temp;
-        temp=(address)malloc(sizeof(Tumpukan));
-        temp->alamat=simpan;
-        temp->next=(*First);
-        (*First)=temp;
-    }
-}
-
-nbAddr pop_stack(address *First){
-    if((*First)==NULL){
-        return NULL;
-    } else if((*First)->next==NULL){
-        nbAddr temp=(*First)->alamat;
-        (*First)=NULL;
-        return temp;
-    } else {
-        address temp;
-        temp=(address)malloc(sizeof(Tumpukan));
-        temp=(*First);
-        while(temp->next->next!=NULL){
-            temp=temp->next;
-        }
-        nbAddr returns = temp->next->alamat;
-        temp->next=NULL;
-        return returns;
-
-    }
-}
-
-bool empty_stack(address First){
-    if(First==NULL){
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
