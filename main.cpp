@@ -23,6 +23,23 @@ int main(){
     Insertnode(&MyList, nbSearch(MyList.root,"Kevin"), "Maman");
     Insertnode(&MyList, nbSearch(MyList.root,"Kevin"), "Nanad");
 
+    view_traversal(MyList.root);
+    MyList_Binary = Convert_nbtree(MyList.root, &MyList_BinAVL);
+    printf("\n\tBinary Tree");
+    view_traversal_binary(MyList_Binary);
+    printf("\n\tAVL Binary Tree");
+    view_traversal_binary(MyList_BinAVL); MyList_BinAVL=NULL;
+
+    MyList.root = delete_node(MyList.root, "Bobby");
+
+    view_traversal(MyList.root);
+    MyList_Binary = Convert_nbtree(MyList.root, &MyList_BinAVL);
+    printf("\n\tBinary Tree");
+    view_traversal_binary(MyList_Binary);
+    printf("\n\tAVL Binary Tree");
+    view_traversal_binary(MyList_BinAVL);
+
+    /*
     for(;;){
         switch(menu()){
             case 1: {
@@ -44,8 +61,7 @@ int main(){
             }
             case 4: {
                 // Reset Tree.
-                free(MyList.root);
-                MyList.root=NULL;
+                resetTree(&MyList); MyList_BinAVL = NULL;
                 printf("\n\tReset Tree Berhasil!\n\t"); system("pause"); system("cls");
                 break;
             }
@@ -57,6 +73,7 @@ int main(){
                 view_traversal_binary(MyList_Binary);
                 printf("\n\tAVL Binary Tree");
                 view_traversal_binary(MyList_BinAVL);
+                MyList_BinAVL = NULL;
                 printf("\n\t"); system("pause"); system("cls");
                 break;
             }
@@ -64,7 +81,7 @@ int main(){
                 system("cls"); exit(1);
             }
         }
-    }
+    }*/
 
 	return 0;
 }

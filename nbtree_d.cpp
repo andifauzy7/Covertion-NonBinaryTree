@@ -227,6 +227,104 @@ void view_traversal_binary(Addr root){
 }
 
 /* Delete Node */
+void resetTree(nbTree *tRoot){
+    free((*tRoot).root);
+    (*tRoot).root=NULL;
+}
+
+nbAddr delete_node(nbAddr root, nbType value){
+    nbAddr temp;
+    if(root==NULL){
+        printf("\n\tTree belum dibuat!"); return NULL;
+    } else {
+        temp = nbSearch(root, value);
+        if(temp == NULL){
+            printf("\n\tNama Tidak Ditemukan!");
+        } else {
+            if(temp == root){
+                // Jika Root.
+                printf("\n\tAsumsi tidak bisa Menghapus Root!\n");
+            }
+            if(isLeaf(temp)){
+                // Jika Leaf atau Daun.
+                root = delete_leaf(root, temp);
+            } else {
+                // Jika batang.
+                root = delete_stem(root, temp);
+            }
+        }
+        return root;
+    }
+
+}
+
+bool isLeaf(nbAddr root){
+    if(root->fs == NULL){
+        return true;
+    } else {
+        return false;
+    }
+}
+
+nbAddr delete_leaf(nbAddr root, nbAddr value){
+    if(nbSearchbefore(root, value)==0){
+        // Seorang Kakak.
+        if(value->nb!=NULL){
+            // Memiliki Adik.
+            nbAddr adiknya = value->nb;
+            value->parent->fs = adiknya;
+        } else {
+            // Anak Tunggal.
+            nbAddr ayahnya = value->parent;
+            ayahnya->fs = NULL;
+        }
+    } else {
+        // Memiliki Kakak.
+        if(value->nb!=NULL){
+            // Memiliki kakak dan Adik.
+            nbSearchbefore(root, value)->nb = value->nb;
+        } else {
+            // Anak terkecil.
+            nbSearchbefore(root, value)->nb = NULL;
+        }
+    }
+    value=NULL;
+    free(value);
+    return root;
+}
+
+nbAddr delete_stem(nbAddr root, nbAddr value){
+    // Jika seorang kakak.
+    if(nbSearchbefore(root, value)==0){
+        nbAddr anaknya = value->fs;
+        anaknya->parent = value->parent;
+        value->parent->fs = anaknya;
+        anaknya->fs = anaknya->nb;
+        if(value->nb==NULL){
+            // Tidak memiliki adik.
+            anaknya->nb = NULL;
+            nbAddr cucu = anaknya->fs;
+            while(cucu != NULL){
+                cucu->parent = anaknya;
+                cucu = cucu->nb;
+            }
+        } else {
+            // Memiliki seorang adik.
+            nbAddr adiknya = value->nb;
+            anaknya->nb = adiknya;
+            nbAddr cucu = anaknya->fs;
+            while(cucu != NULL){
+                cucu->parent = anaknya;
+                cucu = cucu->nb;
+            }
+        }
+    } else {
+        // Jika memiliki kakak.
+    }
+    value=NULL;
+    free(value);
+    return root;
+}
 
 /* Search dengan mengembalikan address Node tertentu */
 

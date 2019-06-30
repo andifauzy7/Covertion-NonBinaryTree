@@ -66,7 +66,11 @@ void Binary_in(Addr root);
 void view_traversal_binary(Addr root);
 
 /* Delete Node */
-
+void resetTree(nbTree *tRoot);
+nbAddr delete_node(nbAddr root, nbType value);
+bool isLeaf(nbAddr root);
+nbAddr delete_leaf(nbAddr root, nbAddr value);
+nbAddr delete_stem(nbAddr root, nbAddr value);
 
 /* Search dengan mengembalikan address Node tertentu */
 nbAddr nbSearch(nbAddr root, nbType src);
