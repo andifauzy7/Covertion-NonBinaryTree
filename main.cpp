@@ -1,7 +1,7 @@
 #include "nbtree_d.h"
 
 int main(){
-    nbType nama;
+    nbType nama, why;
     nbTree MyList;
 
 
@@ -14,6 +14,12 @@ int main(){
 
     nbPrint(MyList.root," ");
     view_traversal(MyList.root);
+/*
+    printf("\n\t Delete : ");
+    scanf(" %[^\n]", why);
+*/
+    nb_delete(&MyList);
+    nbPrint(MyList.root," ");
 
 	return 0;
 }

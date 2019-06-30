@@ -46,6 +46,7 @@ By : Fahmi Widianto */
 void Insertnode(nbTree *tRoot, nbAddr parent, nbType X);
 void inputmember(nbTree *root);
 
+
 /* Tampil Tree Preorder, Inorder, Postorder
 By : Both */
 void Postorder(nbAddr root);
@@ -59,6 +60,10 @@ By : Andi Fauzy D */
 
 /* Modul Pembantu */
 void updatetree(nbTree *root, nbTree *root2);
+void nb_delete(nbTree *pTree);
+bAddr b_delete(bAddr root,nbType value);
+bAddr value_minimum(bAddr root);
+bAddr bSearch(bAddr root, nbType src);
 
 /* Search dengan mengembalikan address Node tertentu
 By : Andi Fauzy D */

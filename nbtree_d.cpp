@@ -10,6 +10,8 @@ Kelas       : 1A / D3-T.Informatika (JTK'18)
 #include "nbtree_d.h"
 #include "boolean.h"
 
+bool c=false;
+
 /* Tampilan Menu */
 
 
@@ -128,6 +130,20 @@ nbAddr nbSearch(nbAddr root, nbType src){
 	}
 }
 
+bAddr bSearch(bAddr root, nbType src){
+	if (root!=NULL){
+		if (root->info==src)
+			return root;
+		else{
+		    (src > root->info) ? bSearch(root->right,src) : bSearch(root->left,src);
+		}
+	}
+	else{
+		return NULL;
+	}
+}
+
+
 nbAddr nbSearchbefore(nbAddr root, nbAddr alamat){
 	nbAddr nSrc;
 	if (root!=NULL){
@@ -200,3 +216,123 @@ void updatetree(nbTree *root, nbTree *root2){
     }
 }
 
+/* non binary delete */
+
+void nb_delete(nbTree *pTree){
+    nbAddr pdel, temp, tempNb;
+    pdel=pTree->root;
+    nbType value;
+
+    printf("\n\t Delete : ");
+    scanf(" %[^\n]", value);
+
+    if (pTree->root!=NULL){
+        pdel=nbSearch(pTree->root, value);
+        if(pdel->fs!=NULL){
+            temp=pdel;
+            while(temp->fs!=NULL){
+                strcpy(temp->nama, temp->fs->nama);
+                if(temp->fs->nb!=NULL){
+                    tempNb=temp->fs->nb;
+                }
+                temp=temp->fs;
+
+                if (pdel->fs->nama==pdel->nama){
+                    pdel->fs=tempNb;
+                    tempNb=pdel->fs;
+                    while(temp->nb!=NULL){
+                        tempNb=tempNb->nb;
+                    }
+                    if(temp->fs!=NULL){
+                        tempNb->nb=temp;
+                    }
+                    pdel=temp;
+                    temp->nb=NULL;
+                }
+            }
+        }
+        else if(pdel->fs==NULL){
+            temp=pdel->parent;
+
+            if(temp->fs==pdel){
+                temp->fs=pdel->nb;
+            }
+            else{
+                temp=temp->fs;
+                while(temp->nb!=NULL){
+                    if(temp->nb==pdel){
+                        temp->nb=temp->nb->nb;
+                    }
+                    else{
+                        temp=temp->nb;
+                    }
+                }
+            }
+        }
+        free(pdel);
+    }
+    else{
+        printf("\n\tTree Kosong mamang!!!");
+    }
+}
+
+/* binary delete */
+
+bAddr b_delete(bAddr root, nbType value)
+{
+	c=bSearch(root,value);
+	if(root==NULL)
+		return root;
+	else if(value< root->info)
+	{
+		root->left= b_delete(root->left,value);
+	}
+	else if(value> root->info)
+	{
+		root->right= b_delete(root->right,value);
+	}
+
+	// Node deletion
+	else
+	{
+		//case 1: Leaf Node
+		if(root->left==NULL&&root->right==NULL)
+		{
+			delete root;
+			root=NULL;
+			return root;
+		}
+		//case 2: one child
+		else if(root->left==NULL)
+		{
+			struct TreeNode* temp=root;
+			root=root->right;
+			delete temp;
+			return root;
+		}
+		else if(root->right==NULL)
+		{
+			struct TreeNode* temp=root;
+			root=root->left;
+			delete temp;
+			return root;
+		}
+		//case 3: 2 child
+		else
+		{
+			struct TreeNode*temp=value_minimum(root->right);
+			strcpy(root->info, temp->info);
+			root->right=b_delete(root->right,temp->info);
+		}
+	}
+	return root;
+
+}
+
+bAddr value_minimum(bAddr root){
+    bAddr temp=root;
+    while(temp && temp->left!=NULL){
+        temp=temp->left;
+    }
+    return temp;
+}
