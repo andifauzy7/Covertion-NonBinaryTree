@@ -78,20 +78,24 @@
 	"nbtree_d.h"
 	"boolean.h"
 
-<<<<<<< HEAD
-1561905620 source:c:\users\andi fauzy\documents\covertion-nonbinarytree\nbtree_d.cpp
-=======
-1561897155 source:c:\users\andi fauzy\documents\covertion-nonbinarytree\nbtree_d.cpp
->>>>>>> master
+1561440506 D
+
+1561921691 source:c:\users\andi fauzy\documents\covertion-nonbinarytree\nbtree_d.cpp
 	<malloc.h>
 	"nbtree_d.h"
 	"boolean.h"
 
-<<<<<<< HEAD
-1561901990 c:\users\andi fauzy\documents\covertion-nonbinarytree\nbtree_d.h
-=======
-1561897124 c:\users\andi fauzy\documents\covertion-nonbinarytree\nbtree_d.h
->>>>>>> master
+1561897055 ter
+	<malloc.h>
+	"nbtree_d.h"
+	"boolean.h"
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	"boolean.h"
+	"nbtree_d.h"
+
+1561920903 c:\users\andi fauzy\documents\covertion-nonbinarytree\nbtree_d.h
 	<stdio.h>
 	<stdlib.h>
 	<string.h>
@@ -99,11 +103,7 @@
 
 1557815917 c:\users\andi fauzy\documents\covertion-nonbinarytree\boolean.h
 
-<<<<<<< HEAD
-1561905570 source:c:\users\andi fauzy\documents\covertion-nonbinarytree\main.cpp
-=======
-1561897055 source:c:\users\andi fauzy\documents\covertion-nonbinarytree\main.cpp
->>>>>>> master
+1561921737 source:c:\users\andi fauzy\documents\covertion-nonbinarytree\main.cpp
 	"nbtree_d.h"
 
 1561448383 source:c:\users\user\documents\covertion-nonbinarytree\main.cpp
@@ -116,8 +116,6 @@
 	"boolean.h"
 
 1561440506 c:\users\user\documents\covertion-nonbinarytree\boolean.h
-
-1561440506 D
 
 1561445629 source:c:\users\hilmy\documents\covertion-nonbinarytree\main.cpp
 	"nbtree_d.h"

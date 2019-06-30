@@ -298,75 +298,34 @@ nbAddr delete_leaf(nbAddr root, nbAddr value){
 }
 
 nbAddr delete_stem(nbAddr root, nbAddr value){
+    nbAddr anaknya = value->fs;
+    anaknya->parent = value->parent;
     // Jika seorang kakak.
     if(nbSearchbefore(root, value)==0){
-        nbAddr anaknya = value->fs;
-        anaknya->parent = value->parent;
         value->parent->fs = anaknya;
-        anaknya->fs = anaknya->nb;
+        //anaknya->fs = anaknya->nb;
         if(value->nb==NULL){
             // Tidak memiliki adik.
-            anaknya->nb = NULL;
-            nbAddr cucu = anaknya->fs;
-            while(cucu != NULL){
-                cucu->parent = anaknya;
-                cucu = cucu->nb;
-            }
+            anaknya = upgrade_position(root, anaknya);
         } else {
             // Memiliki seorang adik.
             nbAddr adiknya = value->nb;
+            anaknya = upgrade_position(root, anaknya);
             anaknya->nb = adiknya;
-            nbAddr cucu = anaknya->fs;
-            while(cucu != NULL){
-                cucu->parent = anaknya;
-                cucu = cucu->nb;
-            }
         }
     } else {
         // Jika memiliki kakak.
         nbAddr kakaknya = nbSearchbefore(root, value);
         if(value->nb == NULL){
             // Jika tidak memiliki adik.
-            nbAddr anaknya = value->fs;
-            anaknya->parent = value->parent;
-            kakaknya->nb = anaknya;
-            if(anaknya->fs!=NULL && anaknya->nb!=NULL){
-                // Jika punya anak dan saudara.
-                nbAddr cucu = anaknya->fs;
-                nbAddr saudara = anaknya->nb;
-                anaknya->fs=NULL; anaknya->nb=NULL;
-                anaknya->fs = saudara;
-                saudara->nb = cucu;
-                while(saudara!=NULL){
-                    saudara->parent = anaknya;
-                    saudara = saudara->nb;
-                }
-            } else {
-                if(anaknya->fs==NULL){
-                    // Jika punya saudara aja.
-                    nbAddr saudara = anaknya->nb;
-                    anaknya->nb = NULL;
-                    anaknya->fs = saudara;
-                    while(saudara!=NULL){
-                        saudara->parent = anaknya;
-                        saudara = saudara->nb;
-                    }
-                }
-            }
+            anaknya = upgrade_position(root, anaknya);
         } else {
             // Jika Memiliki adik.
             nbAddr adiknya = value->nb;
-            nbAddr anaknya = value->fs;
-            anaknya->parent = value->parent;
-            kakaknya->nb = anaknya;
-            anaknya->fs = anaknya->nb;
+            anaknya = upgrade_position(root, anaknya);
             anaknya->nb = adiknya;
-            nbAddr cucu = anaknya->fs;
-            while(cucu != NULL){
-                cucu->parent = anaknya;
-                cucu = cucu->nb;
-            }
         }
+        kakaknya->nb = anaknya;
     }
     value=NULL;
     free(value);
@@ -374,40 +333,31 @@ nbAddr delete_stem(nbAddr root, nbAddr value){
 }
 
 nbAddr upgrade_position(nbAddr root, nbAddr value){
-    if(root->fs==NULL){
-        // Jika tidak memiliki FS.
-        if(root->nb==NULL){
-            // Jika tidak memiliki saudara.
-        } else {
-            // Jika memiliki saudara.
-            nbAddr saudaranya = root->nb;
-            root->fs = saudaranya;
-            root->nb = NULL;
-            while(saudaranya!=NULL){
-                saudaranya->parent = root;
-                saudaranya = saudaranya->nb;
+    nbAddr anaknya = value;
+    if(anaknya->fs!=NULL && anaknya->nb!=NULL){
+        // Jika punya anak dan saudara.
+        nbAddr cucu = anaknya->fs;
+        nbAddr saudara = anaknya->nb;
+        anaknya->fs=NULL; anaknya->nb=NULL;
+        anaknya->fs = saudara;
+        saudara->nb = cucu;
+            while(saudara!=NULL){
+                saudara->parent = anaknya;
+                saudara = saudara->nb;
             }
-        }
     } else {
-        // Jika memiliki FS.
-        if(root->nb==NULL){
-            // Jika tidak memiliki saudara.
-        } else {
-            // Jika memiliki saudara.
-            nbAddr head_anaknya = value->fs;
-            value->fs = NULL;
-            nbAddr saudaranya = value->nb;
-            while(saudaranya!=NULL){
-                if(value->fs == NULL){
-                    value->fs = saudaranya;
+        if(anaknya->fs==NULL){
+            // Jika punya saudara aja.
+            nbAddr saudara = anaknya->nb;
+            anaknya->nb = NULL;
+            anaknya->fs = saudara;
+                while(saudara!=NULL){
+                    saudara->parent = anaknya;
+                    saudara = saudara->nb;
                 }
-                saudaranya->parent = value;
-                saudaranya = saudaranya->nb;
-            }
-            saudaranya->nb = head_anaknya;
         }
     }
-    return root;
+    return anaknya;
 }
 
 /* Search dengan mengembalikan address Node tertentu */
