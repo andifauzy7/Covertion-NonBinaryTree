@@ -162,8 +162,11 @@ void Inorder(nbAddr root){
 }
 
 void view_traversal(nbAddr root){
-    printf("\n");
-    printf("\tPOSTORDER : ");
+    if(root==NULL){
+        printf("\n\tTree belum dibuat!");
+    }
+    printf("\n\tNon - Binary Tree");
+    printf("\n\tPOSTORDER : ");
     Postorder(root); printf("\n");
     printf("\tINORDER   : ");
     Inorder(root);   printf("\n");
@@ -198,8 +201,11 @@ void In_binary(bAddr root){
 }
 
 void view_traversal_binary(bAddr root){
-    printf("\n");
-    printf("\tPOSTORDER : ");
+    if(root==NULL){
+        printf("\n\tTree belum dibuat!");
+    }
+    printf("\n\tBinary Tree");
+    printf("\n\tPOSTORDER : ");
     Post_binary(root); printf("\n");
     printf("\tINORDER   : ");
     In_binary(root);   printf("\n");

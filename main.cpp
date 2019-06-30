@@ -44,7 +44,9 @@ int main(){
             }
             case 4: {
                 // Reset Tree.
-                printf("\n\t"); system("pause"); system("cls");
+                free(MyList.root);
+                MyList.root=NULL;
+                printf("\n\tReset Tree Berhasil!\n\t"); system("pause"); system("cls");
                 break;
             }
             case 5: {
