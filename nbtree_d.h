@@ -2,7 +2,8 @@
 File        : nbtree_d.h
 Edited      : Andi Fauzy - 181511007
               Fahmi Widianto - 181511012
-Deskripsi   : Program silsilah keluarga kerajaan (Asumsi serupa dengan kerajaan Spanyol).
+              Hilmy Oktoharita - 181511015
+Deskripsi   : Deklarasi Modul dan Kamus data.
 Kelas       : 1A / D3-T.Informatika (JTK'18)
 */
 
@@ -16,6 +17,8 @@ Kelas       : 1A / D3-T.Informatika (JTK'18)
 typedef struct nbTreeNode *nbAddr;
 typedef char nbType[30];
 
+/* Struct Non - Binary Tree */
+
 typedef struct nbTreeNode{
 	nbType nama;
 	nbAddr fs, nb, parent;
@@ -25,7 +28,7 @@ struct nbTree{
 	nbAddr root;
 };
 
-/* Ini Struct Binary Tree */
+/* Struct Binary Tree */
 
 typedef struct TreeNode *bAddr;
 typedef struct TreeNode{
@@ -34,22 +37,19 @@ typedef struct TreeNode{
 }BinaryTree;
 
 
-/* Konstruktor Tree
-By : Fahmi Widianto */
+/* Konstruktor Tree */
 
 void nbCreate(nbTree *x);
 nbAddr nbCNode(nbType X);
 bAddr Create_BTree(bAddr *First, nbType nama);
 bAddr Convert_nbtree(nbAddr root);
 
-/* Modul Alokasi untuk sebuah Node. Terdapat Input-an spt (Nama, Usia, JK, Status)
-By : Fahmi Widianto */
+/* Modul Alokasi untuk sebuah Node. */
 void Insertnode(nbTree *tRoot, nbAddr parent, nbType X);
 void inputmember(nbTree *root);
 bAddr insert_btree(bAddr First, nbAddr nonbinary);
 
-/* Tampil Tree Preorder, Inorder, Postorder
-By : Both */
+/* Tampil Tree Preorder, Inorder, Postorder */
 
 /* Untuk Non - Binary Tree */
 void Postorder(nbAddr root);
@@ -63,20 +63,18 @@ void Pre_binary(bAddr root);
 void In_binary(bAddr root);
 void view_traversal_binary(bAddr root);
 
-/* Delete Node, diasumsikan pada silsilah keluarga statusnya menjadi meninggal
-By : Andi Fauzy D */
+/* Delete Node */
+
 
 
 /* Modul Pembantu */
 
-/* Search dengan mengembalikan address Node tertentu
-By : Andi Fauzy D */
+/* Search dengan mengembalikan address Node tertentu */
 nbAddr nbSearch(nbAddr root, nbType src);
 nbAddr nbSearchbefore(nbAddr root, nbAddr alamat);
 bAddr bSearch(bAddr root, nbType src);
 
-/* Cetak Tree
-By : Both */
+/* Cetak Tree */
 void nbPrint(nbAddr node, char tab[]);
 
 

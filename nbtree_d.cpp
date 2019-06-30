@@ -10,10 +10,8 @@ Kelas       : 1A / D3-T.Informatika (JTK'18)
 #include "nbtree_d.h"
 #include "boolean.h"
 
-/* Tampilan Menu */
-
-
 /* Konstruktor Tree */
+
 void nbCreate(nbTree *x){
 	(*x).root=NULL;
 }
@@ -35,6 +33,38 @@ bAddr Create_BTree(bAddr *First, nbType nama){
     strcpy((*First)->info,nama);
     return (*First);
 }
+
+bAddr Convert_nbtree(nbAddr root){
+    bAddr First = (bAddr)malloc(sizeof(BinaryTree));
+    First->left = First->right = NULL;
+    nbAddr pCur;
+	boolean arah;
+	arah=0;
+    if(root == NULL){
+        return NULL;
+    }
+	pCur=root;
+	First = insert_btree(First, pCur);
+	do{
+		if(pCur->fs!=NULL && arah==0){
+			pCur=pCur->fs;
+			First = insert_btree(First, pCur);
+		}else{
+			arah=0;
+			if (pCur->nb!= NULL){
+				pCur=pCur->nb;
+				First = insert_btree(First, pCur);
+			}else{
+				pCur=pCur->parent;
+				arah=1;
+			}
+		}
+	}while(pCur!=NULL);
+    return First;
+}
+
+
+/* Modul Alokasi untuk sebuah Node. */
 
 bAddr insert_btree(bAddr First, nbAddr nonbinary){
     bAddr temp = (bAddr)malloc(sizeof(BinaryTree));
@@ -70,37 +100,6 @@ bAddr insert_btree(bAddr First, nbAddr nonbinary){
     return First;
 }
 
-bAddr Convert_nbtree(nbAddr root){
-    bAddr First = (bAddr)malloc(sizeof(BinaryTree));
-    First->left = First->right = NULL;
-    nbAddr pCur;
-	boolean arah;
-	arah=0;
-    if(root == NULL){
-        return NULL;
-    }
-	pCur=root;
-	First = insert_btree(First, pCur);
-	do{
-		if(pCur->fs!=NULL && arah==0){
-			pCur=pCur->fs;
-			First = insert_btree(First, pCur);
-		}else{
-			arah=0;
-			if (pCur->nb!= NULL){
-				pCur=pCur->nb;
-				First = insert_btree(First, pCur);
-			}else{
-				pCur=pCur->parent;
-				arah=1;
-			}
-		}
-	}while(pCur!=NULL);
-    return First;
-}
-
-
-/* Modul Alokasi untuk sebuah Node. Terdapat Input-an spt (Nama, Usia, JK, Status) */
 void Insertnode(nbTree *tRoot, nbAddr parent, nbType X){
     nbAddr newNode, temp;
 
@@ -133,7 +132,7 @@ void Insertnode(nbTree *tRoot, nbAddr parent, nbType X){
 
 /* Tampil Tree Preorder, Inorder, Postorder */
 
-/* NON - BINARY TREE */
+/* Untuk Non - Binary Tree */
 
 void Postorder(nbAddr root){
 	if (root!=NULL){
@@ -172,7 +171,7 @@ void view_traversal(nbAddr root){
     Preorder(root);  printf("\n");
 }
 
-/* BINARY TREE */
+/* Untuk Binary Tree */
 
 void Post_binary(bAddr root){
 	if (root!=NULL){
@@ -208,7 +207,9 @@ void view_traversal_binary(bAddr root){
     Pre_binary(root);  printf("\n");
 }
 
-/* Delete Node, diasumsikan pada silsilah keluarga statusnya menjadi meninggal */
+/* Delete Node */
+
+
 
 /* Modul Pembantu */
 
@@ -280,3 +281,5 @@ void nbPrint(nbAddr node, char tab[]){
 		nbPrint(node->nb,tab);
 	}
 }
+
+
