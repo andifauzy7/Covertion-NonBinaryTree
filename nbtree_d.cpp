@@ -10,6 +10,8 @@ Kelas       : 1A / D3-T.Informatika (JTK'18)
 #include "nbtree_d.h"
 #include "boolean.h"
 
+bool c=false;
+
 /* Konstruktor Tree */
 
 void nbCreate(nbTree *x){
@@ -446,6 +448,7 @@ nbAddr nbSearch(nbAddr root, nbType src){
 	}
 }
 
+
 nbAddr nbSearchbefore(nbAddr root, nbAddr alamat){
 	nbAddr nSrc;
 	if (root!=NULL){
@@ -647,3 +650,124 @@ Addr input_nodeAVL(Addr node, nbType value){
 	return node;
 }
 
+
+/* non binary delete */
+
+void nb_delete(nbTree *pTree){
+    nbAddr pdel, temp, tempNb;
+    pdel=pTree->root;
+    nbType value;
+
+    printf("\n\t Delete : ");
+    scanf(" %[^\n]", value);
+
+    if (pTree->root!=NULL){
+        pdel=nbSearch(pTree->root, value);
+        if(pdel->fs!=NULL){
+            temp=pdel;
+            while(temp->fs!=NULL){
+                strcpy(temp->nama, temp->fs->nama);
+                if(temp->fs->nb!=NULL){
+                    tempNb=temp->fs->nb;
+                }
+                temp=temp->fs;
+
+                if (pdel->fs->nama==pdel->nama){
+                    pdel->fs=tempNb;
+                    tempNb=pdel->fs;
+                    while(temp->nb!=NULL){
+                        tempNb=tempNb->nb;
+                    }
+                    if(temp->fs!=NULL){
+                        tempNb->nb=temp;
+                    }
+                    pdel=temp;
+                    temp->nb=NULL;
+                }
+            }
+        }
+        else if(pdel->fs==NULL){
+            temp=pdel->parent;
+
+            if(temp->fs==pdel){
+                temp->fs=pdel->nb;
+            }
+            else{
+                temp=temp->fs;
+                while(temp->nb!=NULL){
+                    if(temp->nb==pdel){
+                        temp->nb=temp->nb->nb;
+                    }
+                    else{
+                        temp=temp->nb;
+                    }
+                }
+            }
+        }
+        free(pdel);
+    }
+    else{
+        printf("\n\tTree Kosong mamang!!!");
+    }
+}
+
+/* binary delete */
+
+Addr b_delete(Addr root, nbType value)
+{
+	c=bSearch(root,value);
+	if(root==NULL)
+		return root;
+	else if(value< root->info)
+	{
+		root->left= b_delete(root->left,value);
+	}
+	else if(value> root->info)
+	{
+		root->right= b_delete(root->right,value);
+	}
+
+	// Node deletion
+	else
+	{
+		//case 1: Leaf Node
+		if(root->left==NULL&&root->right==NULL)
+		{
+			delete root;
+			root=NULL;
+			return root;
+		}
+		//case 2: one child
+		else if(root->left==NULL)
+		{
+			struct TreeNode* temp=root;
+			root=root->right;
+			delete temp;
+			return root;
+		}
+		else if(root->right==NULL)
+		{
+			struct TreeNode* temp=root;
+			root=root->left;
+			delete temp;
+			return root;
+		}
+		//case 3: 2 child
+		else
+		{
+			struct TreeNode*temp=value_minimum(root->right);
+			strcpy(root->info, temp->info);
+			root->right=b_delete(root->right,temp->info);
+		}
+	}
+	return root;
+
+}
+
+Addr value_minimum(Addr root){
+    Addr temp=root;
+    while(temp && temp->left!=NULL){
+        temp=temp->left;
+    }
+    return temp;
+}

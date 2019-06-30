@@ -2,6 +2,7 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
+<<<<<<< HEAD
 	<File name="nbtree_d.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="1728" topLine="59" />
@@ -14,10 +15,16 @@
 	<File name="main.cpp" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="1088" topLine="11" />
+=======
+	<File name="main.cpp" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="613" topLine="3" />
+>>>>>>> c6edf18f1205ffebff9ca581e5c4f1d30b08f9b6
 		</Cursor>
 	</File>
-	<File name="nbtree_d.cpp" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="nbtree_d.cpp" open="1" top="1" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
+<<<<<<< HEAD
 			<Cursor1 position="1001" topLine="38" />
 		</Cursor>
 		<Folding>
@@ -25,4 +32,14 @@
 			<Collapse line="169" />
 		</Folding>
 	</File>
+=======
+			<Cursor1 position="3112" topLine="239" />
+		</Cursor>
+	</File>
+	<File name="nbtree_d.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1058" topLine="48" />
+		</Cursor>
+	</File>
+>>>>>>> c6edf18f1205ffebff9ca581e5c4f1d30b08f9b6
 </CodeBlocks_layout_file>
