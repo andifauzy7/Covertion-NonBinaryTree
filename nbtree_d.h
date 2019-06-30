@@ -50,9 +50,15 @@ Addr insert_btree(Addr First, nbAddr nonbinary);
 /* Kedalaman */
 int bDepth(Addr root);
 
+
 /* Tampil Tree Preorder, Inorder, Postorder */
 
 /* Untuk Non - Binary Tree */
+
+
+/* Tampil Tree Preorder, Inorder, Postorder
+By : Both */
+
 void Postorder(nbAddr root);
 void Preorder(nbAddr root);
 void Inorder(nbAddr root);
@@ -66,6 +72,14 @@ void Binary_in(Addr root);
 void view_traversal_binary(Addr root);
 
 /* Delete Node */
+
+
+/* Modul Pembantu */
+void updatetree(nbTree *root, nbTree *root2);
+void nb_delete(nbTree *pTree);
+Addr b_delete(Addr root,nbType value);
+Addr value_minimum(Addr root);
+Addr bSearch(Addr root, nbType src);
 
 
 /* Search dengan mengembalikan address Node tertentu */
