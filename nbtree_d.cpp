@@ -236,10 +236,11 @@ void resetTree(nbTree *tRoot){
 
 nbAddr delete_node(nbAddr root, nbType value){
     nbAddr temp;
+    /*
     if(strcmp(root->nama,value)==0){
         printf("\n\tAsumsi tidak menghapus Root");
         return root;
-    }
+    }*/
     if(root==NULL){
         printf("\n\tTree belum dibuat!");
     } else {
@@ -247,15 +248,18 @@ nbAddr delete_node(nbAddr root, nbType value){
         if(temp == NULL){
             printf("\n\tNama Tidak Ditemukan!");
         } else {
-            if(isLeaf(temp)){
+            if(temp==root){
+                // Jika Root.
+                root = delete_root(root, temp);
+            }
+            else if(isLeaf(temp)){
                 // Jika Leaf atau Daun.
                 root = delete_leaf(root, temp);
-                printf("\n\tDelete Berhasil!");
             } else {
                 // Jika batang.
                 root = delete_stem(root, temp);
-                printf("\n\tDelete Berhasil!");
             }
+        printf("\n\tDelete Berhasil!");
         }
         return root;
     }
@@ -268,6 +272,22 @@ bool isLeaf(nbAddr root){
     } else {
         return false;
     }
+}
+
+nbAddr delete_root(nbAddr root, nbAddr value){
+    if(isLeaf(value)){
+        // Jika berupa Daun. (1 Node saja)
+        root=NULL;
+    } else {
+        // Jika bukan Daun.
+        nbAddr anaknya = value->fs;
+        anaknya->parent = NULL;
+        anaknya = upgrade_position(root,anaknya);
+        root = anaknya;
+    }
+    value = NULL;
+    free(value);
+    return root;
 }
 
 nbAddr delete_leaf(nbAddr root, nbAddr value){
@@ -337,14 +357,16 @@ nbAddr upgrade_position(nbAddr root, nbAddr value){
     if(anaknya->fs!=NULL && anaknya->nb!=NULL){
         // Jika punya anak dan saudara.
         nbAddr cucu = anaknya->fs;
+        while(cucu->nb!=NULL){
+            cucu = cucu->nb;
+        }
         nbAddr saudara = anaknya->nb;
-        anaknya->fs=NULL; anaknya->nb=NULL;
-        anaknya->fs = saudara;
-        saudara->nb = cucu;
-            while(saudara!=NULL){
-                saudara->parent = anaknya;
-                saudara = saudara->nb;
-            }
+        cucu->nb = saudara;
+        anaknya->nb=NULL;
+        while(saudara!=NULL){
+            saudara->parent = anaknya;
+            saudara = saudara->nb;
+        }
     } else {
         if(anaknya->fs==NULL){
             // Jika punya saudara aja.

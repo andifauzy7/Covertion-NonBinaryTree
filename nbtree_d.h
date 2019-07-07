@@ -75,6 +75,7 @@ void view_traversal_binary(Addr root);
 void resetTree(nbTree *tRoot);
 nbAddr delete_node(nbAddr root, nbType value);
 bool isLeaf(nbAddr root);
+nbAddr delete_root(nbAddr root, nbAddr value);
 nbAddr delete_leaf(nbAddr root, nbAddr value);
 nbAddr delete_stem(nbAddr root, nbAddr value);
 nbAddr upgrade_position(nbAddr root, nbAddr value);
